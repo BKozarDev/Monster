@@ -4,40 +4,35 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
+    [SerializeField]
+    float moveSpeed = 4f;
 
-    public float speed = 90f;
-    public float turnSpeed = 5f;
-    public float hoverForce = 65f;
-    public float hoverHeight = 3.5f;
-    private float powerInput;
-    private float turnInput;
-    private Rigidbody carRigidbody;
+    Vector3 forward, right;
 
-    private void Awake()
+    private void Start()
     {
-        carRigidbody = GetComponent<Rigidbody>();
+        forward = Camera.main.transform.forward;
+        forward.y = 0;
+        forward = Vector3.Normalize(forward);
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        powerInput = Input.GetAxis("Vertical");
-        turnInput = Input.GetAxis("Horizontal");
+        if (Input.anyKey)
+            Move();
     }
 
-    private void FixedUpdate()
+    void Move()
     {
-        Ray ray = new Ray(transform.position, -transform.up);
-        RaycastHit hit;
+        Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey"));
+        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
+        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
 
-        if(Physics.Raycast(ray, out hit, hoverHeight))
-        {
-            float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
-            Vector3 appliedHoverForce = Vector3.up * proportionalHeight * hoverForce;
-            carRigidbody.AddForce(appliedHoverForce, ForceMode.Acceleration);
-        }
+        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
-        carRigidbody.AddRelativeForce(0f, 0f, powerInput * speed);
-        carRigidbody.AddRelativeTorque(0f, turnInput * turnSpeed, 0f);
+        transform.forward = heading;
+        transform.position += rightMovement;
+        transform.position += upMovement;
     }
 }
