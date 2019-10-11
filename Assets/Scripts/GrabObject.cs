@@ -54,6 +54,7 @@ public class GrabObject : MonoBehaviour
             {
                 nearestDist = dist;
                 grabbedObject = collider.gameObject;
+
             }
         }
     }
@@ -61,14 +62,20 @@ public class GrabObject : MonoBehaviour
     private void GrabToHand()
     {
         // Анимация с вытянутыми руками
+        Debug.Log("Collider Size : " + grabbedObject.GetComponent<Collider>().bounds.size.z);
+        handTransform.position += new Vector3(0f, 0f, grabbedObject.GetComponent<Collider>().bounds.size.z / 2);
         grabbedObject.transform.position = handTransform.position;
         grabbedObject.transform.SetParent(handTransform);
+        grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+        grabbedObject.GetComponent<Rigidbody>().useGravity = false;
         isGrabbed = true;
     }
 
     private void UnGrab()
     {
         grabbedObject.transform.SetParent(null);
+        grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+        grabbedObject.GetComponent<Rigidbody>().useGravity = true;
         isGrabbed = false;
     }
 }
