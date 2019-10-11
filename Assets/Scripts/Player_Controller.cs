@@ -5,34 +5,27 @@ using UnityEngine;
 public class Player_Controller : MonoBehaviour
 {
     [SerializeField]
-    float moveSpeed = 4f;
+    float speed = 5f;
 
-    Vector3 forward, right;
+    private Rigidbody rb;
+    private Vector3 inputs = Vector3.zero;
 
     private void Start()
     {
-        forward = Camera.main.transform.forward;
-        forward.y = 0;
-        forward = Vector3.Normalize(forward);
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        if (Input.anyKey)
-            Move();
+        inputs = Vector3.zero;
+        inputs.x = Input.GetAxis("Horizontal");
+        inputs.z = Input.GetAxis("Vertical");
+        if (inputs != Vector3.zero)
+            transform.forward = inputs;
     }
 
-    void Move()
+    private void FixedUpdate()
     {
-        Vector3 direction = new Vector3(Input.GetAxis("HorizontalKey"), 0, Input.GetAxis("VerticalKey"));
-        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey");
-        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey");
-
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-
-        transform.forward = heading;
-        transform.position += rightMovement;
-        transform.position += upMovement;
+        rb.MovePosition(rb.position + inputs * speed * Time.fixedDeltaTime);
     }
 }
