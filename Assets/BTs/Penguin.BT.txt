@@ -1,0 +1,11 @@
+tree("Root")
+	while not detected
+		MoveToNextPoint
+	else tree("Follow")
+		
+
+tree("Follow")
+	sequence
+		MoveAfter
+
+
