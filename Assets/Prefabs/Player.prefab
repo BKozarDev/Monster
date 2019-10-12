@@ -49,6 +49,8 @@ GameObject:
   - component: {fileID: 7778371500930282184}
 =======
 >>>>>>> parent of 7ab25e0... Penguin is yet not chasing you :(
+=======
+>>>>>>> parent of 7ab25e0... Penguin is yet not chasing you :(
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -144,8 +146,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
 <<<<<<< HEAD
+<<<<<<< HEAD
   isHunted: 0
   animator: {fileID: 7778371500930282184}
+=======
+>>>>>>> parent of 7ab25e0... Penguin is yet not chasing you :(
 =======
 >>>>>>> parent of 7ab25e0... Penguin is yet not chasing you :(
 --- !u!54 &5199807842176465426
@@ -184,6 +189,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
 <<<<<<< HEAD
+<<<<<<< HEAD
   animator: {fileID: 0}
 --- !u!95 &7778371500930282184
 Animator:
@@ -204,5 +210,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+=======
+>>>>>>> parent of 7ab25e0... Penguin is yet not chasing you :(
 =======
 >>>>>>> parent of 7ab25e0... Penguin is yet not chasing you :(
