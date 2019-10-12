@@ -1,33 +1,23 @@
 ﻿using UnityEngine.AI;
 using UnityEngine;
-using System.Collections;
 using Panda;
 
-[RequireComponent(typeof(NavMeshAgent),typeof(FieldOfView))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class PenguinBehaviour : MonoBehaviour
 {
-    private static string playerTag = "Player";
-
-    [SerializeField]
-    private float playerNearnessTreshold = 0.5f;
-
     [SerializeField]
     private Transform guardPositionTransform;
     private Transform penguinTransform;
     private Transform playerTransform;
-    private Player_Controller playerController;
 
     private NavMeshAgent agent;
-    private FieldOfView fov;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        fov = GetComponent<FieldOfView>();
 
         penguinTransform = transform;
-        playerTransform = GameObject.FindGameObjectWithTag(playerTag).transform;
-        playerController = playerTransform.GetComponent<Player_Controller>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     [Task]
@@ -41,7 +31,7 @@ public class PenguinBehaviour : MonoBehaviour
     {
         get
         {
-            return fov.visibleTargets.Contains(playerTransform);
+            return true;
         }
     }
 
@@ -50,7 +40,7 @@ public class PenguinBehaviour : MonoBehaviour
     {
         get
         {
-            return playerController.isHunted;
+            return true;
         }
     }
 
@@ -59,7 +49,7 @@ public class PenguinBehaviour : MonoBehaviour
     {
         get
         {
-            return (playerTransform.position - penguinTransform.position).magnitude < playerNearnessTreshold;
+            return false;
         }
     }
 
@@ -85,25 +75,6 @@ public class PenguinBehaviour : MonoBehaviour
     [Task]
     public void GoToPosition()
     {
-        agent.SetDestination(guardPositionTransform.position);
-        StartCoroutine(RotateIfStoped());
-        Task.current.Fail();
-    }
-
-    IEnumerator RotateIfStoped()
-    {
-        if (agent.velocity.magnitude <= 0.1f)
-        {
-            if ((transform.eulerAngles - guardPositionTransform.eulerAngles).magnitude > 0.1f)
-            {
-                transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, guardPositionTransform.eulerAngles, Time.deltaTime * 10f);
-                Debug.Log(transform.eulerAngles);
-                yield return null;
-            }
-        } else
-        {
-            yield return null;
-        }
-
+        Debug.Log("attacked");
     }
 }

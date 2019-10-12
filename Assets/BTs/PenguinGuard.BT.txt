@@ -10,19 +10,17 @@ tree("StayAndGuard")
 tree("Chase")
 	//When the enemy is visible, attack it,
 	//Otherwise forget about it.
-	repeat
-		sequence
-			fallback
-				while
-					sequence
-						IsPlayerVisible
-					repeat
-						sequence
-							IsPlayerHasEgg
-							GoToLastPlayersPosition
-							IsPlayerNear
-							Attack
-				//Otherwise forget about it.
+	fallback
+		while
+			sequence
+				IsPlayerVisible
+			repeat
 				sequence
-					GoToPosition
+					IsPlayerHasEgg
+					GoToLastPlayersPosition
+					IsPlayerNear
+					Attack
+		//Otherwise forget about it.
+		sequence
+			GoToPosition
 
