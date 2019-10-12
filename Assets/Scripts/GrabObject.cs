@@ -12,6 +12,8 @@ public class GrabObject : MonoBehaviour
     private float grabDistance = 3f;
     [SerializeField]
     private GameObject grabbedObject;
+    private Rigidbody goRb;
+    private InteractableObject goIo;
     [SerializeField]
     private bool isGrabbed = false;
     [SerializeField]
@@ -63,6 +65,8 @@ public class GrabObject : MonoBehaviour
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             Debug.Log("Grab raycast hit");
             grabbedObject = hit.collider.gameObject;
+            goRb = grabbedObject.GetComponent<Rigidbody>();
+            goIo = grabbedObject.GetComponent<InteractableObject>();
             GrabToHand();
         }
     }
@@ -91,22 +95,24 @@ public class GrabObject : MonoBehaviour
     private void GrabToHand()
     {
         // Анимация с вытянутыми руками
-        grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-        grabbedObject.GetComponent<Rigidbody>().useGravity = false;
+        goRb.isKinematic = true;
+        goRb.useGravity = false;
         grabbedObject.transform.position = handTransform.position;
         grabbedObject.transform.position += transform.forward * (grabbedObject.GetComponent<Collider>().bounds.size.z / 2);
         grabbedObject.transform.SetParent(handTransform);
 
         isGrabbed = true;
-        grabbedObject.GetComponent<InteractableObject>().OnGrabAction();
+        if (goIo != null)
+            goIo.OnGrabAction();
     }
 
     private void UnGrab()
     {
-        grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
-        grabbedObject.GetComponent<Rigidbody>().useGravity = true;
+        goRb.isKinematic = false;
+        goRb.useGravity = true;
         grabbedObject.transform.SetParent(null);
-        grabbedObject.GetComponent<InteractableObject>().UnGrabAction();
+        if(goIo!=null)
+            goIo.UnGrabAction();
         grabbedObject = null;
         isGrabbed = false;
 
