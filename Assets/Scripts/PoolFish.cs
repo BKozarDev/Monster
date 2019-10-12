@@ -47,9 +47,11 @@ public class PoolFish
     {
         poolsDictionary[target.name].AddFirst(target);
         //Debug.Log("PUT: " + target.name);
-        target.transform.SetParent(deactivatedObjectsParent);
-        //target.transform.parent = deactivatedObjectsParent;
+        target.transform.parent = deactivatedObjectsParent;
+        //target.transform.SetParent(deactivatedObjectsParent);
+
         target.SetActive(false);
+
     }
 
     public static void debugShow()

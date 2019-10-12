@@ -13,7 +13,7 @@ public class GrabObject : MonoBehaviour
     [SerializeField]
     private GameObject grabbedObject;
     [SerializeField]
-    private bool isGrabbed = false;
+    public bool isGrabbed = false;
     [SerializeField]
     private LayerMask grabObjectLayer;
     [SerializeField]
@@ -40,19 +40,25 @@ public class GrabObject : MonoBehaviour
     {
         if (Input.GetKeyDown(grabKey))
         {
-            Debug.Log("Grab Key Down");
+            //Debug.Log("Grab Key Down");
             if (!isGrabbed)
             {
-                Debug.Log("Grab");
+                //Debug.Log("Grab");
                 FindNearestObjectAndGrab();
             }
             else
             {
-                Debug.Log("UnGrab");
+                //Debug.Log("UnGrab");
                 UnGrab();
             }
 
         }
+    }
+
+    public void TakeFish(GameObject fish)
+    {
+        grabbedObject = fish;
+        GrabToHand();
     }
 
 
@@ -69,7 +75,6 @@ public class GrabObject : MonoBehaviour
                 {
                     nearestDist = dist;
                     grabbedObject = collider.gameObject;
-
                 }
             }
             GrabToHand();
@@ -87,6 +92,8 @@ public class GrabObject : MonoBehaviour
         grabbedObject.transform.SetParent(handTransform);
 
         isGrabbed = true;
+        animator.SetBool("isGrab", true);
+        animator.SetLayerWeight(1, 1f);
     }
 
     private void UnGrab()
@@ -96,5 +103,7 @@ public class GrabObject : MonoBehaviour
         grabbedObject.transform.SetParent(null);
         grabbedObject = null;
         isGrabbed = false;
+        animator.SetBool("isGrab", false);
+        animator.SetLayerWeight(1, 0f);
     }
 }
