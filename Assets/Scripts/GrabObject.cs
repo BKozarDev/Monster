@@ -16,6 +16,19 @@ public class GrabObject : MonoBehaviour
     private bool isGrabbed = false;
     [SerializeField]
     private LayerMask grabObjectLayer;
+    private Animator animator;
+
+    private void Awake()
+    {
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
+        if (handTransform == null)
+        {
+            handTransform = GetComponentInChildren<Transform>();
+        }
+    }
 
     private void Update()
     {
