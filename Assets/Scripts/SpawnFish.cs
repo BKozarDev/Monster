@@ -28,39 +28,45 @@ public class SpawnFish : MonoBehaviour
         fishList_Temp = new List<GameObject>();
         player = GameObject.FindGameObjectWithTag("Player");
         go = player.GetComponent<GrabObject>();
-        count = -1;
+        count = 0;
+        cF = -1;
         fishka = new GameObject[2];
         isFish = false;
     }
 
     GameObject[] fishka;
-    
+    int cF;
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            cF++;
+            if(cF >= fishka.Length)
+            {
+                cF = 0;
+            }
+            fishka[cF] = PoolFish.getGameObjectFromPool(manager.getFish(count));
             count++;
-            fishka[count] = PoolFish.getGameObjectFromPool(manager.getFish(count));
             isFish = true;
         }
 
-        if (isFish && count > 0)
+        if (isFish && count > 1)
         {
             isFish = false;
-            StartCoroutine("removeFish", 3f);
-            count--;
+            StartCoroutine("removeFish", .2f);
         }
     }
 
+    bool timer = false;
+
     IEnumerator removeFish(float delay)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(delay);
-            PoolFish.putObjectToPool(fishka[count]);
-            isFish = false;
-        }
+        yield return new WaitForSeconds(delay);
+        PoolFish.putObjectToPool(fishka[count - 2]);
+        fishka[0] = fishka[cF];
+        count = 0;
+        cF = 0;
     }
 
     //IEnumerator removeFish(float delay)
