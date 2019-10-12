@@ -82,6 +82,7 @@ public class GrabObject : MonoBehaviour
         // Анимация с вытянутыми руками
         grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
         grabbedObject.GetComponent<Rigidbody>().useGravity = false;
+        grabbedObject.GetComponent<InteractableObject>().OnGrabAction();
         grabbedObject.transform.position = handTransform.position;
         grabbedObject.transform.position += transform.forward * (grabbedObject.GetComponent<Collider>().bounds.size.z / 2);
         grabbedObject.transform.SetParent(handTransform);
@@ -93,6 +94,7 @@ public class GrabObject : MonoBehaviour
     {
         grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
         grabbedObject.GetComponent<Rigidbody>().useGravity = true;
+        grabbedObject.GetComponent<InteractableObject>().UnGrabAction();
         grabbedObject.transform.SetParent(null);
         grabbedObject = null;
         isGrabbed = false;

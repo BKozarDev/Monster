@@ -9,7 +9,7 @@ public class PenguinBehaviour : MonoBehaviour
     private static string playerTag = "Player";
 
     [SerializeField]
-    private float playerNearnessTreshold = 0.5f;
+    private float playerNearnessTreshold = 1f;
 
     [SerializeField]
     private Transform guardPositionTransform;
@@ -32,11 +32,16 @@ public class PenguinBehaviour : MonoBehaviour
 
     [Task]
     public bool IsOnGuardPosition { get
-        { return ((guardPositionTransform.position - penguinTransform.position).magnitude < 1f && 
-                (guardPositionTransform.eulerAngles - penguinTransform.eulerAngles).magnitude < 1f); }
+        {
+            var m = (guardPositionTransform.position - penguinTransform.position).magnitude;
+            var b = ( m< 1f
+ //               && (guardPositionTransform.eulerAngles - penguinTransform.eulerAngles).magnitude < 1f
+    );
+            return b;
+        }
     }
 
-    [Task]
+        [Task]
     public bool IsPlayerVisible
     {
         get
@@ -59,7 +64,9 @@ public class PenguinBehaviour : MonoBehaviour
     {
         get
         {
-            return (playerTransform.position - penguinTransform.position).magnitude < playerNearnessTreshold;
+            var m = (playerTransform.position - penguinTransform.position).magnitude;
+            Debug.Log(m);
+            return m < playerNearnessTreshold;
         }
     }
 
@@ -97,7 +104,6 @@ public class PenguinBehaviour : MonoBehaviour
             if ((transform.eulerAngles - guardPositionTransform.eulerAngles).magnitude > 0.1f)
             {
                 transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, guardPositionTransform.eulerAngles, Time.deltaTime * 10f);
-                Debug.Log(transform.eulerAngles);
                 yield return null;
             }
         } else

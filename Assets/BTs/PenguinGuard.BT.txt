@@ -19,9 +19,13 @@ tree("Chase")
 					repeat
 						sequence
 							IsPlayerHasEgg
-							GoToLastPlayersPosition
-							IsPlayerNear
-							Attack
+							fallback
+								while
+									parallel
+										repeat
+											not IsPlayerNear
+										GoToLastPlayersPosition					
+									Attack
 				//Otherwise forget about it.
 				sequence
 					GoToPosition
