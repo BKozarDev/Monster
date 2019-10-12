@@ -30,8 +30,7 @@ public class GrabObject : MonoBehaviour
             if (!isGrabbed)
             {
                 Debug.Log("Grab");
-                FindNearestObject();
-                GrabToHand();
+                FindNearestObjectAndGrab();
             }
             else
             {
@@ -43,39 +42,45 @@ public class GrabObject : MonoBehaviour
     }
 
 
-    private void FindNearestObject()
+    private void FindNearestObjectAndGrab()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, grabRadius, grabObjectLayer);
         float nearestDist = grabRadius;
-        foreach (Collider collider in hitColliders)
+        if (hitColliders.Length > 0)
         {
-            float dist = Vector3.Distance(transform.position, collider.transform.position);
-            if (nearestDist > dist)
+            foreach (Collider collider in hitColliders)
             {
-                nearestDist = dist;
-                grabbedObject = collider.gameObject;
+                float dist = Vector3.Distance(transform.position, collider.transform.position);
+                if (nearestDist > dist)
+                {
+                    nearestDist = dist;
+                    grabbedObject = collider.gameObject;
 
+                }
             }
+            GrabToHand();
         }
+
     }
 
     private void GrabToHand()
     {
         // Анимация с вытянутыми руками
-        Debug.Log("Collider Size : " + grabbedObject.GetComponent<Collider>().bounds.size.z);
-        handTransform.position += new Vector3(0f, 0f, grabbedObject.GetComponent<Collider>().bounds.size.z / 2);
-        grabbedObject.transform.position = handTransform.position;
-        grabbedObject.transform.SetParent(handTransform);
         grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
         grabbedObject.GetComponent<Rigidbody>().useGravity = false;
+        grabbedObject.transform.position = handTransform.position;
+        grabbedObject.transform.position += transform.forward * (grabbedObject.GetComponent<Collider>().bounds.size.z / 2);
+        grabbedObject.transform.SetParent(handTransform);
+
         isGrabbed = true;
     }
 
     private void UnGrab()
     {
-        grabbedObject.transform.SetParent(null);
         grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
         grabbedObject.GetComponent<Rigidbody>().useGravity = true;
+        grabbedObject.transform.SetParent(null);
+        grabbedObject = null;
         isGrabbed = false;
     }
 }
