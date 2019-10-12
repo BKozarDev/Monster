@@ -9,9 +9,11 @@ public class GrabObject : MonoBehaviour
     private Transform handTransform;
     private KeyCode grabKey = KeyCode.F;
     [SerializeField]
-    private float grabRadius = 3f;
+    private float grabDistance = 3f;
     [SerializeField]
     private GameObject grabbedObject;
+    private Rigidbody goRb;
+    private InteractableObject goIo;
     [SerializeField]
     private bool isGrabbed = false;
     [SerializeField]
@@ -44,7 +46,7 @@ public class GrabObject : MonoBehaviour
             if (!isGrabbed)
             {
                 Debug.Log("Grab");
-                FindNearestObjectAndGrab();
+                GrabFrontObject();
             }
             else
             {
@@ -55,11 +57,25 @@ public class GrabObject : MonoBehaviour
         }
     }
 
+    private void GrabFrontObject()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, grabDistance, grabObjectLayer))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Debug.Log("Grab raycast hit");
+            grabbedObject = hit.collider.gameObject;
+            goRb = grabbedObject.GetComponent<Rigidbody>();
+            goIo = grabbedObject.GetComponent<InteractableObject>();
+            GrabToHand();
+        }
+    }
 
+    /*
     private void FindNearestObjectAndGrab()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, grabRadius, grabObjectLayer);
-        float nearestDist = grabRadius;
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, grabDistance, grabObjectLayer);
+        float nearestDist = grabDistance;
         if (hitColliders.Length > 0)
         {
             foreach (Collider collider in hitColliders)
@@ -74,29 +90,31 @@ public class GrabObject : MonoBehaviour
             }
             GrabToHand();
         }
-
     }
-
+    */
     private void GrabToHand()
     {
         // Анимация с вытянутыми руками
-        grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-        grabbedObject.GetComponent<Rigidbody>().useGravity = false;
-        grabbedObject.GetComponent<InteractableObject>().OnGrabAction();
+        goRb.isKinematic = true;
+        goRb.useGravity = false;
         grabbedObject.transform.position = handTransform.position;
         grabbedObject.transform.position += transform.forward * (grabbedObject.GetComponent<Collider>().bounds.size.z / 2);
         grabbedObject.transform.SetParent(handTransform);
 
         isGrabbed = true;
+        if (goIo != null)
+            goIo.OnGrabAction();
     }
 
     private void UnGrab()
     {
-        grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
-        grabbedObject.GetComponent<Rigidbody>().useGravity = true;
-        grabbedObject.GetComponent<InteractableObject>().UnGrabAction();
+        goRb.isKinematic = false;
+        goRb.useGravity = true;
         grabbedObject.transform.SetParent(null);
+        if(goIo!=null)
+            goIo.UnGrabAction();
         grabbedObject = null;
         isGrabbed = false;
+
     }
 }
