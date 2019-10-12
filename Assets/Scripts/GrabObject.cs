@@ -47,7 +47,7 @@ public class GrabObject : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, grabDistance, grabObjectLayer))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
+            Debug.Log("Grab raycast hit");
             grabbedObject = hit.collider.gameObject;
             GrabToHand();
         }
@@ -84,6 +84,7 @@ public class GrabObject : MonoBehaviour
         grabbedObject.transform.SetParent(handTransform);
 
         isGrabbed = true;
+        grabbedObject.GetComponent<InteractableObject>().OnGrabAction();
     }
 
     private void UnGrab()
@@ -91,7 +92,9 @@ public class GrabObject : MonoBehaviour
         grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
         grabbedObject.GetComponent<Rigidbody>().useGravity = true;
         grabbedObject.transform.SetParent(null);
+        grabbedObject.GetComponent<InteractableObject>().UnGrabAction();
         grabbedObject = null;
         isGrabbed = false;
+
     }
 }

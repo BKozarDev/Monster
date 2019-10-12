@@ -9,6 +9,7 @@ public class Player_Controller : MonoBehaviour
 
     private Rigidbody rb;
     private Vector3 inputs = Vector3.zero;
+    public bool isHunted = false;
 
     private void Start()
     {
