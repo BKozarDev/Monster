@@ -14,6 +14,8 @@ public class CameraFollower : MonoBehaviour
     [SerializeField]
     private float followingTreshold = 0.01f;
 
+    Manager manager;
+
     void Update()
     {
         if ((target.position - transform.position).magnitude <= followingTreshold)
