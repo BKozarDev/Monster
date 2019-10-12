@@ -92,6 +92,8 @@ public class GrabObject : MonoBehaviour
         grabbedObject.transform.SetParent(handTransform);
 
         isGrabbed = true;
+        animator.SetBool("isGrab", true);
+        animator.SetLayerWeight(1, 1f);
     }
 
     private void UnGrab()
@@ -101,5 +103,7 @@ public class GrabObject : MonoBehaviour
         grabbedObject.transform.SetParent(null);
         grabbedObject = null;
         isGrabbed = false;
+        animator.SetBool("isGrab", false);
+        animator.SetLayerWeight(1, 0f);
     }
 }
