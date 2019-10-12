@@ -26,47 +26,55 @@ public class SpawnFish : MonoBehaviour
         manager = FindObjectOfType<Manager>();
         fishList = new List<GameObject>();
         fishList_Temp = new List<GameObject>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        go = player.GetComponent<GrabObject>();
+        go = FindObjectOfType<GrabObject>();
         count = 0;
-        cF = -1;
-        fishka = new GameObject[2];
         isFish = false;
     }
 
-    GameObject[] fishka;
-    int cF;
+    LinkedList<GameObject> fishka = new LinkedList<GameObject>();
+    int cc = 0;
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (count > 1)
         {
-            cF++;
-            if(cF >= fishka.Length)
-            {
-                cF = 0;
-            }
-            fishka[cF] = PoolFish.getGameObjectFromPool(manager.getFish(count));
-            count++;
-            isFish = true;
+            count = 0;
         }
 
-        if (isFish && count > 1)
+        if (fishka.Count > 1)
         {
             isFish = false;
-            StartCoroutine("removeFish", .2f);
+            StartCoroutine("removeFish");
+            if (vse)
+            {
+                fishka.RemoveLast();
+                StopCoroutine("removeFish");
+                vse = false;
+            }
         }
     }
 
-    bool timer = false;
-
-    IEnumerator removeFish(float delay)
+    private void OnTriggerStay(Collider other)
     {
-        yield return new WaitForSeconds(delay);
-        PoolFish.putObjectToPool(fishka[count - 2]);
-        fishka[0] = fishka[cF];
-        count = 0;
-        cF = 0;
+        if(other.tag == "Player")
+        {
+            if (Input.GetKeyDown(KeyCode.F) && !go.isGrabbed)
+            {
+                fishka.AddFirst(PoolFish.getGameObjectFromPool(manager.getFish(count)));
+                count++;
+                isFish = true;
+                go.TakeFish(fishka.Last.Value);
+            }
+        }
+    }
+
+    bool vse = false;
+
+    IEnumerator removeFish()
+    {
+        yield return new WaitForSeconds(0);
+        PoolFish.putObjectToPool(fishka.Last.Value);
+        vse = true;
     }
 
     //IEnumerator removeFish(float delay)
