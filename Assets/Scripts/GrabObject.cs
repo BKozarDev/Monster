@@ -9,7 +9,7 @@ public class GrabObject : MonoBehaviour
     private Transform handTransform;
     private KeyCode grabKey = KeyCode.F;
     [SerializeField]
-    private float grabDistance = 3f;
+    private float grabRadius = 3f;
     [SerializeField]
     private GameObject grabbedObject;
     [SerializeField]
@@ -44,7 +44,7 @@ public class GrabObject : MonoBehaviour
             if (!isGrabbed)
             {
                 Debug.Log("Grab");
-                GrabFrontObject();
+                FindNearestObjectAndGrab();
             }
             else
             {
@@ -55,23 +55,11 @@ public class GrabObject : MonoBehaviour
         }
     }
 
-    private void GrabFrontObject()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, grabDistance, grabObjectLayer))
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.Log("Grab raycast hit");
-            grabbedObject = hit.collider.gameObject;
-            GrabToHand();
-        }
-    }
 
-    /*
     private void FindNearestObjectAndGrab()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, grabDistance, grabObjectLayer);
-        float nearestDist = grabDistance;
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, grabRadius, grabObjectLayer);
+        float nearestDist = grabRadius;
         if (hitColliders.Length > 0)
         {
             foreach (Collider collider in hitColliders)
@@ -86,8 +74,9 @@ public class GrabObject : MonoBehaviour
             }
             GrabToHand();
         }
+
     }
-    */
+
     private void GrabToHand()
     {
         // Анимация с вытянутыми руками
@@ -98,7 +87,6 @@ public class GrabObject : MonoBehaviour
         grabbedObject.transform.SetParent(handTransform);
 
         isGrabbed = true;
-        grabbedObject.GetComponent<InteractableObject>().OnGrabAction();
     }
 
     private void UnGrab()
@@ -106,9 +94,7 @@ public class GrabObject : MonoBehaviour
         grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
         grabbedObject.GetComponent<Rigidbody>().useGravity = true;
         grabbedObject.transform.SetParent(null);
-        grabbedObject.GetComponent<InteractableObject>().UnGrabAction();
         grabbedObject = null;
         isGrabbed = false;
-
     }
 }

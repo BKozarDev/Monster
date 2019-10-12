@@ -19,13 +19,13 @@ public class PoolFish
 
         if (!poolsDictionary.ContainsKey(prefab.name))
         {
-            Debug.Log("!!!");
+            //Debug.Log("!!!");
             poolsDictionary[prefab.name] = new LinkedList<GameObject>();
         }
 
         //Debug.Log("POOL: " + poolsDictionary.Values);
 
-        Debug.Log(prefab.name + " POOL COUNT: " + poolsDictionary[prefab.name].Count);
+        //Debug.Log(prefab.name + " POOL COUNT: " + poolsDictionary[prefab.name].Count);
 
         GameObject result;
 
@@ -46,7 +46,7 @@ public class PoolFish
     public static void putObjectToPool(GameObject target)
     {
         poolsDictionary[target.name].AddFirst(target);
-        Debug.Log("PUT: " + target.name);
+        //Debug.Log("PUT: " + target.name);
         target.transform.SetParent(deactivatedObjectsParent);
         //target.transform.parent = deactivatedObjectsParent;
         target.SetActive(false);

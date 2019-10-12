@@ -1,0 +1,29 @@
+tree("Root")
+	fallback
+		tree("Patrol")
+		tree("Chase")
+
+tree("Patrol")
+	while
+		sequence
+			not PlayerSpoted
+		repeat
+			sequence
+				MoveToWaypoint
+				Wait(0.3)
+				NextWaypoint		
+
+tree("Chase")
+	//When the enemy is visible, attack it,
+	//Otherwise forget about it.
+	fallback
+		while IsPlayerVisible 
+			repeat
+				sequence
+					IsPlayerHasEgg
+					GoToLastPlayersPosition
+					IsPlayerNear
+					Attack
+			//Otherwise forget about it.
+			sequence
+				GoToPosition

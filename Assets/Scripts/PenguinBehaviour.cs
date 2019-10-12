@@ -1,22 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.AI;
 using UnityEngine;
 using Panda;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class PenguinBehaviour : MonoBehaviour
 {
-    [Task]
-    private bool detected;
-    // Start is called before the first frame update
+    [SerializeField]
+    private Transform guardPositionTransform;
+    private Transform penguinTransform;
+    private Transform playerTransform;
+
+    private NavMeshAgent agent;
+
     void Start()
     {
-        
+        agent = GetComponent<NavMeshAgent>();
+
+        penguinTransform = transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    [Task]
+    public bool IsOnGuardPosition { get
+        { return ((guardPositionTransform.position - penguinTransform.position).magnitude < 1f && 
+                (guardPositionTransform.eulerAngles - penguinTransform.eulerAngles).magnitude < 1f); }
+    }
+
+    [Task]
+    public bool IsPlayerVisible
     {
-        
+        get
+        {
+            return true;
+        }
+    }
+
+    [Task]
+    public bool IsPlayerHasEgg
+    {
+        get
+        {
+            return true;
+        }
+    }
+
+    [Task]
+    public bool IsPlayerNear
+    {
+        get
+        {
+            return false;
+        }
     }
 
     [Task]
@@ -26,8 +60,21 @@ public class PenguinBehaviour : MonoBehaviour
     }
 
     [Task]
-    public void MoveAfter()
+    public void GoToLastPlayersPosition()
     {
+        agent.SetDestination(playerTransform.position);
+    }
 
+    [Task]
+    public void Attack()
+    {
+        Debug.Log("attacked");
+    }
+
+
+    [Task]
+    public void GoToPosition()
+    {
+        Debug.Log("attacked");
     }
 }
