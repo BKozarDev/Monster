@@ -16,6 +16,7 @@ public class GrabObject : MonoBehaviour
     private bool isGrabbed = false;
     [SerializeField]
     private LayerMask grabObjectLayer;
+    [SerializeField]
     private Animator animator;
 
     private void Awake()
