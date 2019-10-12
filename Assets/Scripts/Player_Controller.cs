@@ -13,6 +13,9 @@ public class Player_Controller : MonoBehaviour
     [SerializeField]
     LayerMask groundLayer;
 
+    [SerializeField]
+    public float dashDistance;
+
     private Rigidbody rb;
     private Vector3 inputs = Vector3.zero;
     public bool isHunted = false;
@@ -24,6 +27,7 @@ public class Player_Controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        rb.drag = 0.05f;
     }
 
     private void Update()
@@ -36,7 +40,8 @@ public class Player_Controller : MonoBehaviour
             transform.forward = inputs;
             animator.SetFloat("speed", (Mathf.Abs(inputs.x) + Mathf.Abs(inputs.z)) / 2);
         }
-        Dash();
+        if(inputs != Vector3.zero)
+            Dash();
 
         //if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, groundLayer))
         //{
@@ -51,17 +56,20 @@ public class Player_Controller : MonoBehaviour
 
     private void Dash()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            animator.SetBool("isDash", true);
-            speed = 10f;
+            Debug.Log(Vector3.Scale(transform.position, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime))));
+            Vector3 dashVel = Vector3.Scale(transform.forward, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+            rb.AddForce(transform.forward * dashDistance, ForceMode.VelocityChange);
+            //animator.SetBool("isDash", true);
+            //speed = 10f;
             // Minus stamina
         }
-        else
-        {
-            animator.SetBool("isDash", false);
-            speed = 5f;
-            // Plus stamina
-        }
+        //else
+        //{
+        //    animator.SetBool("isDash", false);
+        //    speed = 5f;
+        //    // Plus stamina
+        //}
     }
 }
