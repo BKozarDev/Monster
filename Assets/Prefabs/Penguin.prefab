@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1127782790259980822}
   - component: {fileID: 1127782790259980823}
   - component: {fileID: 1127782790259980818}
+  - component: {fileID: 765032032}
   m_Layer: 0
   m_Name: Penguin
   m_TagString: Untagged
@@ -151,4 +152,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db87546ed0c84b43a9284312f918533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNearnessTreshold: 0.5
   guardPositionTransform: {fileID: 0}
+--- !u!114 &765032032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127782790259981288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9563b82a1ff3af459d8baa046fec217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 4
+  viewAngle: 60
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 512
+  obstaclesMask:
+    serializedVersion: 2
+    m_Bits: 0
+  visibleTargets: []
