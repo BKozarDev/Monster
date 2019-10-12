@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 5199807842176465453}
   - component: {fileID: 5199807842176465426}
   - component: {fileID: 5199807842176465427}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  isHunted: 0
 --- !u!54 &5199807842176465426
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -174,3 +175,4 @@ MonoBehaviour:
   grabObjectLayer:
     serializedVersion: 2
     m_Bits: 256
+  animator: {fileID: 0}
