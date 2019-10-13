@@ -20,9 +20,7 @@ public class Egg : InteractableObject
     public override void UnGrabAction()
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Controller>().isHunted = false;
-        Destroy(gameObject);
-        Instantiate(brokenEgg, transform.position, transform.rotation);
-        // isDropped = true;
+        isDropped = true;
         // StartCoroutine(BrokeEggAfterDelay(activationTime));
     }
 
@@ -33,12 +31,12 @@ public class Egg : InteractableObject
     //    Instantiate(brokenEgg, transform.position, transform.rotation);
     //}
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (isDropped)
-    //    {
-    //        Destroy(gameObject);
-    //        Instantiate(brokenEgg, transform.position, transform.rotation);
-    //    }
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isDropped)
+        {
+            Destroy(gameObject);
+            Instantiate(brokenEgg, transform.position + Vector3.up * 0.05f, Quaternion.identity);
+        }
+    }
 }
