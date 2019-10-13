@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8154940669768259672}
   - component: {fileID: 1612742109}
   - component: {fileID: 1612742110}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ec14a8a752821469c61e2a2ed855b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brushSize: 2.5
+  brushSize: 0.5
   brushStrength: 1
   drawShader: {fileID: 4800000, guid: 2bfe85bcbcce4fe4da376a64091ca8f2, type: 3}
 --- !u!114 &1612742110
