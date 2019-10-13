@@ -8,6 +8,8 @@ public class StepsScript : MonoBehaviour
     public float stepsTimer = 0.1f;
     public LayerMask groundLayer;
     public bool draw;
+    public AudioSource stepsSource;
+    public AudioClip step;
 
     private float timer;
     private int offsetSide;
@@ -40,6 +42,8 @@ public class StepsScript : MonoBehaviour
             {
                 hit.collider.GetComponent<DrawScript>().DrawOnPoint(hit.textureCoord);
             }
+            stepsSource.pitch = Random.Range(0.8f, 1.2f);
+            stepsSource.PlayOneShot(step);
             timer = stepsTimer;
             offsetSide *= -1;
         }
