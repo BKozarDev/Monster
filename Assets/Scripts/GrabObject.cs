@@ -42,15 +42,15 @@ public class GrabObject : MonoBehaviour
     {
         if (Input.GetKeyDown(grabKey))
         {
-            Debug.Log("Grab Key Down");
+            //Debug.Log("Grab Key Down");
             if (!isGrabbed)
             {
-                Debug.Log("Grab");
+                //Debug.Log("Grab");
                 GrabFrontObject();
             }
             else
             {
-                Debug.Log("UnGrab");
+                //Debug.Log("UnGrab");
                 UnGrab();
             }
 
@@ -59,8 +59,19 @@ public class GrabObject : MonoBehaviour
 
     private void GrabFrontObject()
     {
+        //RaycastHit hit;
+        //if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, grabDistance, grabObjectLayer))
+        //{
+        //    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+        //    Debug.Log("Grab raycast hit");
+        //    grabbedObject = hit.collider.gameObject;
+        //    goRb = grabbedObject.GetComponent<Rigidbody>();
+        //    goIo = grabbedObject.GetComponent<InteractableObject>();
+        //    GrabToHand();
+        //}
+
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, grabDistance, grabObjectLayer))
+        if (Physics.SphereCast(transform.position, 1f, transform.forward, out hit, grabDistance))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             Debug.Log("Grab raycast hit");
@@ -102,6 +113,8 @@ public class GrabObject : MonoBehaviour
         grabbedObject.transform.SetParent(handTransform);
 
         isGrabbed = true;
+        animator.SetBool("isGrab", true);
+        animator.SetLayerWeight(1, 1f);
         if (goIo != null)
             goIo.OnGrabAction();
     }
@@ -115,6 +128,23 @@ public class GrabObject : MonoBehaviour
             goIo.UnGrabAction();
         grabbedObject = null;
         isGrabbed = false;
+        animator.SetBool("isGrab", false);
+        animator.SetLayerWeight(1, 0f);
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == grabObjectLayer)
+        {
+            // Делаем обводку контура
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == grabObjectLayer)
+        {
+            // Снимаем обводку контура
+        }
     }
 }
