@@ -8,4 +8,50 @@ AvatarMask:
   m_PrefabAsset: {fileID: 0}
   m_Name: Hand Avatar Mask
   m_Mask: 00000000000000000000000000000000000000000100000001000000010000000100000000000000000000000100000001000000
-  m_Elements: []
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Base
+    m_Weight: 0
+  - m_Path: Base/Tummy
+    m_Weight: 0
+  - m_Path: Base/Tummy/Chest
+    m_Weight: 1
+  - m_Path: Base/Tummy/Chest/Clavicle_L
+    m_Weight: 1
+  - m_Path: Base/Tummy/Chest/Clavicle_L/Shoulder_L
+    m_Weight: 1
+  - m_Path: Base/Tummy/Chest/Clavicle_L/Shoulder_L/Hand_L
+    m_Weight: 1
+  - m_Path: Base/Tummy/Chest/Clavicle_R
+    m_Weight: 1
+  - m_Path: Base/Tummy/Chest/Clavicle_R/Shoulder_R
+    m_Weight: 1
+  - m_Path: Base/Tummy/Chest/Clavicle_R/Shoulder_R/Hand_R
+    m_Weight: 1
+  - m_Path: Base/Tummy/Chest/Neck
+    m_Weight: 0
+  - m_Path: Base/Tummy/Chest/Neck/Head
+    m_Weight: 0
+  - m_Path: Base/Tummy/Chest/Neck/Head/Jaw_Low
+    m_Weight: 0
+  - m_Path: Base/Tummy/Chest/Neck/Head/Jaw_Top
+    m_Weight: 0
+  - m_Path: Base/Tummy/Pelvis_L
+    m_Weight: 0
+  - m_Path: Base/Tummy/Pelvis_L/Hip_L
+    m_Weight: 0
+  - m_Path: Base/Tummy/Pelvis_L/Hip_L/Leg_L
+    m_Weight: 0
+  - m_Path: Base/Tummy/Pelvis_L/Hip_L/Leg_L/Foot_L
+    m_Weight: 0
+  - m_Path: Base/Tummy/Pelvis_R
+    m_Weight: 0
+  - m_Path: Base/Tummy/Pelvis_R/Hip_R
+    m_Weight: 0
+  - m_Path: Base/Tummy/Pelvis_R/Hip_R/Leg_R
+    m_Weight: 0
+  - m_Path: Base/Tummy/Pelvis_R/Hip_R/Leg_R/Foot_R
+    m_Weight: 0
+  - m_Path: Penguin
+    m_Weight: 0
