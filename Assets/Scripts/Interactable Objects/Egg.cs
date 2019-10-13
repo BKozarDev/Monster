@@ -36,7 +36,7 @@ public class Egg : InteractableObject
         if (isDropped)
         {
             Destroy(gameObject);
-            Instantiate(brokenEgg, transform.position + Vector3.up * 0.05f, Quaternion.identity);
+            Instantiate(brokenEgg, transform.position + Vector3.up * 0.02f, Quaternion.identity);
         }
     }
 }
