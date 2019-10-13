@@ -40,8 +40,14 @@ public class Player_Controller : MonoBehaviour
             transform.forward = inputs;
             animator.SetFloat("speed", (Mathf.Abs(inputs.x) + Mathf.Abs(inputs.z)) / 2);
         }
-        if(inputs != Vector3.zero)
+        if (inputs != Vector3.zero)
             Dash();
+        else
+        {
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        Debug.Log(rb.rotation);
 
         //if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, groundLayer))
         //{
