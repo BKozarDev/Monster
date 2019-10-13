@@ -20,6 +20,8 @@ public class GrabObject : MonoBehaviour
     private LayerMask grabObjectLayer;
     [SerializeField]
     private Animator animator;
+    [SerializeField]
+    private SelectObject select;
 
     private void Awake()
     {
@@ -135,16 +137,22 @@ public class GrabObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == grabObjectLayer)
+        if(other.tag == "Grab")
         {
             // Делаем обводку контура
+            select = other.GetComponent<SelectObject>();
+            select.Select();
+            Debug.Log("Select");
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == grabObjectLayer)
+        if (other.tag == "Grab")
         {
             // Снимаем обводку контура
+            select = other.GetComponent<SelectObject>();
+            select.Deselect();
+            Debug.Log("Deselect");
         }
     }
 }

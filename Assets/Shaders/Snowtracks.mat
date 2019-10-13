@@ -23,6 +23,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 4468af534e7ad0e4db2ccb426e07046a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _GroundTex:
+        m_Texture: {fileID: 2800000, guid: 3040c3eaef42db94c81a4fae4c434722, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: c879b3ab34df2cf419323de2f94a8d0a, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -31,15 +35,21 @@ Material:
         m_Texture: {fileID: 2800000, guid: c879b3ab34df2cf419323de2f94a8d0a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SnowTex:
+        m_Texture: {fileID: 2800000, guid: 3040c3eaef42db94c81a4fae4c434722, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Splat:
-        m_Texture: {fileID: 2800000, guid: 4468af534e7ad0e4db2ccb426e07046a, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Displacement: 0.2
+    - _Displacement: 0.15
     - _Glossiness: 0.5
     - _Metallic: 0
-    - _Tess: 3.1
+    - _Tess: 10
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GroundColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
+    - _SnowColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 925873410104549262}
   - component: {fileID: 134243558499679915}
   - component: {fileID: 8947003153163518450}
+  - component: {fileID: 1901342962}
   m_Layer: 8
   m_Name: Egg
-  m_TagString: Untagged
+  m_TagString: Grab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 670224309865224971, guid: ed16e8ee2050b9b4ea25de512d32fc7b, type: 3}
+  - {fileID: 2100000, guid: d6f05ee3a5855f74db206221379410d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,3 +128,15 @@ MonoBehaviour:
     type: 3}
   activationTime: 0.5
   isDropped: 0
+--- !u!114 &1901342962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520220582974985605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e83221a028598449ae7ef855b1c3a30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
