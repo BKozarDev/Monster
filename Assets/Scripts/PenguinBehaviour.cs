@@ -10,6 +10,8 @@ public class PenguinBehaviour : MonoBehaviour
 
     [SerializeField]
     private float playerNearnessTreshold = 1f;
+    [SerializeField]
+    private float attackDelay = 0.5f;
 
     [SerializeField]
     private Transform guardPositionTransform;
@@ -65,7 +67,6 @@ public class PenguinBehaviour : MonoBehaviour
         get
         {
             var m = (playerTransform.position - penguinTransform.position).magnitude;
-            Debug.Log(m);
             return m < playerNearnessTreshold;
         }
     }
@@ -85,7 +86,9 @@ public class PenguinBehaviour : MonoBehaviour
     [Task]
     public void Attack()
     {
-        Debug.Log("attacked");
+        agent.ResetPath();
+        StartCoroutine(WaitAndAttack());
+        Task.current.Succeed();
     }
 
 
@@ -95,6 +98,14 @@ public class PenguinBehaviour : MonoBehaviour
         agent.SetDestination(guardPositionTransform.position);
         StartCoroutine(RotateIfStoped());
         Task.current.Fail();
+    }
+
+    IEnumerator WaitAndAttack()
+    {
+        yield return new WaitForSeconds(attackDelay);
+        // animation
+        if (IsPlayerNear)
+        playerTransform.GetComponent<GrabObject>().UnGrab();
     }
 
     IEnumerator RotateIfStoped()
