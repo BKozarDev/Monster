@@ -43,7 +43,11 @@ public class Player_Controller : MonoBehaviour
         if (inputs != Vector3.zero)
             Dash();
         else
-            rb.velocity = Vector3.zero;
+        {
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        Debug.Log(rb.rotation);
 
         //if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, groundLayer))
         //{

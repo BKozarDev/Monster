@@ -48,7 +48,7 @@ MonoBehaviour:
   stepsTimer: 0.3
   groundLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1024
   draw: 0
   stepsSource: {fileID: 2792781386279789751}
   step: {fileID: 8300000, guid: 0523ca341c7bee749acfd36a89998420, type: 3}
