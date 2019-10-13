@@ -43,7 +43,11 @@ public class Player_Controller : MonoBehaviour
         if (inputs != Vector3.zero)
             Dash();
         else
-            rb.velocity = Vector3.zero;
+        {
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        Debug.Log(rb.rotation);
 
         //if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, groundLayer))
         //{
@@ -63,6 +67,7 @@ public class Player_Controller : MonoBehaviour
             Debug.Log(Vector3.Scale(transform.position, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime))));
             Vector3 dashVel = Vector3.Scale(transform.forward, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
             rb.AddForce(transform.forward * dashDistance, ForceMode.VelocityChange);
+            animator.SetTrigger("dash");
             //animator.SetBool("isDash", true);
             //speed = 10f;
             // Minus stamina

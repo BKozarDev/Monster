@@ -21,17 +21,23 @@ public class PenguinBehaviour : MonoBehaviour
 
     private NavMeshAgent agent;
     private FieldOfView fov;
+    private Animator animator;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         fov = GetComponent<FieldOfView>();
+        animator = GetComponent<Animator>();
 
         penguinTransform = transform;
         playerTransform = GameObject.FindGameObjectWithTag(playerTag).transform;
         playerController = playerTransform.GetComponent<Player_Controller>();
     }
 
+    private void Update()
+    {
+        animator.SetFloat("speed", agent.velocity.magnitude);
+    }
     [Task]
     public bool IsOnGuardPosition { get
         {
@@ -104,6 +110,7 @@ public class PenguinBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(attackDelay);
         // animation
+        animator.SetTrigger("attack");
         if (IsPlayerNear)
         playerTransform.GetComponent<GrabObject>().UnGrab();
     }

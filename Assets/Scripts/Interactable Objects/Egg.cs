@@ -33,7 +33,7 @@ public class Egg : InteractableObject
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (isDropped)
+        if (isDropped && !collision.transform.CompareTag("Player")) // Мб сделать тег для земли?
         {
             Destroy(gameObject);
             Instantiate(brokenEgg, transform.position + Vector3.up * 0.02f, Quaternion.identity);
