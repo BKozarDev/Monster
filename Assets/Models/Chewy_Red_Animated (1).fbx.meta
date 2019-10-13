@@ -17,7 +17,7 @@ ModelImporter:
     second: Idle
   - first:
       74: -722401266947162039
-    second: Idle head
+    second: Attack head
   - first:
       74: -8444228808809566427
     second: Dash
@@ -169,7 +169,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Idle head
+      name: Attack head
       takeName: Take 001
       internalID: 0
       firstFrame: 75
