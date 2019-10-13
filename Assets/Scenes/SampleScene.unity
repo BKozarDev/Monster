@@ -261,6 +261,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8423310937382117189, guid: 09d4a69eb59abb94ea63642b60f5b2d6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d6f05ee3a5855f74db206221379410d7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09d4a69eb59abb94ea63642b60f5b2d6, type: 3}
 --- !u!1001 &493961828
@@ -278,7 +283,7 @@ PrefabInstance:
     - target: {fileID: 639605100120434582, guid: 0025e5657ed3c0b4ba7103cc97233234,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.7470095
+      value: 4.72
       objectReference: {fileID: 0}
     - target: {fileID: 639605100120434582, guid: 0025e5657ed3c0b4ba7103cc97233234,
         type: 3}
@@ -329,6 +334,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 134243558499679915, guid: 0025e5657ed3c0b4ba7103cc97233234,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0025e5657ed3c0b4ba7103cc97233234, type: 3}
@@ -695,3 +705,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2034411709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8423310937382117191, guid: 09d4a69eb59abb94ea63642b60f5b2d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 397905789}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2034411710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034411709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e83221a028598449ae7ef855b1c3a30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

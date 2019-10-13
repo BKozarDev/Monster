@@ -121,7 +121,7 @@ public class GrabObject : MonoBehaviour
             goIo.OnGrabAction();
     }
 
-    private void UnGrab()
+    public void UnGrab()
     {
         goRb.isKinematic = false;
         goRb.useGravity = true;
